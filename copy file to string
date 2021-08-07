@@ -1,0 +1,57 @@
+// CommpresPEfile.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+
+//!HEADER
+
+#include <iostream>
+#include <windows.h>
+#include <winnt.h>
+#include <string>
+#include <stdio.h>
+#include <filesystem>
+#include <string>
+#include <stdexcept>
+ #include <iomanip>
+#include <sstream>
+
+#include <stdlib.h>
+#include <shlwapi.h>
+#include <algorithm>
+#include <vector>
+#include <stdio.h>
+#include <string.h> 
+#include <assert.h>
+#include <type_traits>
+#include <typeinfo>
+#include <fstream>
+
+ //!HEADER ADDING
+#include "zlib.h"
+
+ 
+std::string get_stream_from_file(std::string filename) // path to file
+{
+    FILE* p_file = NULL;
+    fopen_s(&p_file, (const char*)filename.c_str(), "rb");
+    fseek(p_file, 0, SEEK_END);
+    auto addressFile = &p_file;
+    int sizee = ftell(p_file);
+    std::string str;
+    char m_char; 
+    for (int i = 0 ; i < sizee; i++) {
+        m_char = (char)(addressFile + i);
+        str.push_back(m_char);
+    }
+    fclose(p_file);
+    return str;
+}
+
+int main()
+{
+     
+    std::string str = get_stream_from_file("../notepad++.exe");
+    std::cout << str.size() << std::endl << str;
+
+      
+} 
